@@ -1,0 +1,22 @@
+{
+  "article": {
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "content": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "date"
+      },
+      "tags": {
+        "type": "string",
+        "index_name": "tag"
+      },
+      "author_id": {
+        "type": "string"
+      }
+    }
+  }
+}

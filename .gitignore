@@ -1,8 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea
+/rethinkdb_data
 ### Node template
 # Logs
-logs
 *.log
 npm-debug.log*
 
