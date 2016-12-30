@@ -8,6 +8,7 @@ let elasticsearchClient = new elasticsearch.Client({
     log: 'trace'
 })
 
+exports.client = elasticsearchClient
 exports.check = (next) => {
     elasticsearchClient.ping({
         requestTimeout: Infinity

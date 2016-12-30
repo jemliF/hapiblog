@@ -14,7 +14,7 @@
         "type": "string",
         "index_name": "tag"
       },
-      "author_id": {
+      "authorId": {
         "type": "string"
       }
     }

@@ -3,6 +3,7 @@
 const Hapi = require('hapi')
 const log = require('./utils/log')
 const sprintf = require("sprintf-js").sprintf
+const Tv = require('tv')
 
 let server = {}
 server.start = function () {
@@ -47,8 +48,10 @@ server.start = function () {
     }
 
     hapiServer.register({
-        register: require('good'),
-        options,
+        register: [Tv],
+        options: {
+
+        }
     }, (err) => {
 
         if (err) {

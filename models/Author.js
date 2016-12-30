@@ -5,4 +5,4 @@ var Author = thinky.createModel('Author', {
     lastname: String,
     email: thinky.type.string().email(),
     password: String
-});
+})
