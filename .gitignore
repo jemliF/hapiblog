@@ -4,6 +4,7 @@
 ### Node template
 # Logs
 *.log
+troubleshooting.js
 npm-debug.log*
 
 # Runtime data

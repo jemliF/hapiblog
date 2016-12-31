@@ -9,18 +9,9 @@ elasticsearch.check((error) => {
         log.elasticsearch.error('Elasticsearch cluster is down')
     } else {
         log.elasticsearch.info('Elasticsearch is running')
-        //Creating Elasticsearch index & types
-        elasticsearch.createType('author', require('./mappings/author.json'), (err, resp, respCode) => {
-            if (err) {
-                log.elasticsearch.error(err)
-            } else {
-                log.elasticsearch.debug(resp)
 
-
-                //After all is OK
-                server.start()
-            }
-        })
+        //After all is OK
+        server.start()
     }
 })
 

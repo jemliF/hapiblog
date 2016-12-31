@@ -4,8 +4,7 @@ const elasticsearch = require('elasticsearch')
 const log = require('../../utils/log')
 
 let elasticsearchClient = new elasticsearch.Client({
-    host: process.env.ELASTICSEARCH_URL,
-    log: 'trace'
+    host: process.env.ELASTICSEARCH_URL
 })
 
 exports.client = elasticsearchClient
@@ -28,9 +27,6 @@ exports.createType = (type, mapping, next) => {
                     index: 'blog',
                     mappings: mapping
                 }, (err, resp, respcode) => {
-                    log.elasticsearch.error(err)
-                    log.elasticsearch.debug(resp)
-                    log.elasticsearch.debug(respcode)
                     next(err, resp, respcode)
                 })
             }

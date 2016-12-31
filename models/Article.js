@@ -1,6 +1,6 @@
 const thinky = require('../data/rethinkdb/index')
 const Author = require('./Author')
-let Article = thinky.createModel('Article', {
+let Article = thinky.createModel('article', {
     title: String,
     content: String,
     createdAt: {
@@ -11,4 +11,6 @@ let Article = thinky.createModel('Article', {
     authorId: String
 })
 
-Article.belongsTo(Author, 'author', 'authorId', id)
+Article.belongsTo(Author, 'author', 'authorId', 'id')
+
+module.exports = Article

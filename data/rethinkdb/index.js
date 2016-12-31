@@ -6,4 +6,4 @@ let thinky = require('thinky')({
     db: process.env.RETHINKDB_DB
 })
 
-exports.thinky = thinky
+module.exports = thinky

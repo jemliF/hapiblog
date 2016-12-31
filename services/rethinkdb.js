@@ -6,13 +6,21 @@ let rethinkdb = {}
 rethinkdb.add = (model, document) => {
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors
-    return Model.save(document, {conflict: 'update'})
+
+    //let doc = new Model(document)
+    console.log(document)
+    //return Model.save([document])
+    Authors.save(document).then((resp) => {
+        console.log(resp)
+    }, (err) => {
+        console.error(err)
+    })
 }
 
 rethinkdb.getAll = (model) => {
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors
-    return Model.get()
+    return Model.orderBy('')
 }
 
 rethinkdb.get = (model, id) => {
