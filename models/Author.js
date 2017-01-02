@@ -1,6 +1,6 @@
-const thinky = require('../data/rethinkdb/index')
+const thinky = require('../data/rethinkdb/index').thinky
 
-var Author = thinky.createModel('author', {
+const Author = thinky.createModel('author', {
     firstname: String,
     lastname: String,
     email: thinky.type.string().email(),

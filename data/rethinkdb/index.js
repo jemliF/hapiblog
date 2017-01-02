@@ -1,4 +1,5 @@
 'use strict'
+const log = require('../../utils/log')
 
 let thinky = require('thinky')({
     host: process.env.RETHINKDB_HOST,
@@ -6,4 +7,8 @@ let thinky = require('thinky')({
     db: process.env.RETHINKDB_DB
 })
 
-module.exports = thinky
+exports.check = () => {
+    return thinky.dbReady()
+}
+
+exports.thinky = thinky

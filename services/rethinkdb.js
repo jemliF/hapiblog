@@ -4,17 +4,19 @@ const AUTHOR = 'author', ARTICLE = 'article'
 let rethinkdb = {}
 
 rethinkdb.add = (model, document) => {
+    console.log(document)
+    console.log(model)
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors
 
-    //let doc = new Model(document)
-    console.log(document)
-    //return Model.save([document])
-    Authors.save(document).then((resp) => {
-        console.log(resp)
-    }, (err) => {
-        console.error(err)
+    let doc = new Authors({
+        firstname: document.firstname,
+        lastname: document.lastname,
+        email: document.email,
+        password: document.password
     })
+
+    return doc.save({conflict: 'replace'})
 }
 
 rethinkdb.getAll = (model) => {
@@ -32,14 +34,14 @@ rethinkdb.get = (model, id) => {
 rethinkdb.delete = (model, id) => {
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors
-    rethinkdb.get(model, id).then((document) => {
+    return rethinkdb.get(model, id).then((document) => {
         return document.delete()
     }, (err) => {
         return err
     })
 }
 
-rethinkdb.update = (model, id, document) => {
+rethinkdb.update = (model, id, document, next) => {
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors
     rethinkdb.get(model, id).then((document) => {

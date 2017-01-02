@@ -1,4 +1,4 @@
-const thinky = require('../data/rethinkdb/index')
+const thinky = require('../data/rethinkdb/index').thinky
 const Author = require('./Author')
 let Article = thinky.createModel('article', {
     title: String,

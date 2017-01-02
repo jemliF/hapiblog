@@ -65,8 +65,10 @@ server.start = function () {
      })
      })*/
 
-    hapiServer.route(author.getAll)
+    hapiServer.route(author.get)
     hapiServer.route(author.save)
+    hapiServer.route(author.update)
+    hapiServer.route(author.delete)
 
     hapiServer.start((err) => {
 

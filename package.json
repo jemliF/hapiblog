@@ -34,6 +34,7 @@
     "good-http": "^6.1.1",
     "good-squeeze": "^5.0.1",
     "hapi": "^16.0.2",
+    "hapi-auth-jwt2": "^7.2.4",
     "hapi-cors": "^1.0.1",
     "hapi-cors-headers": "^1.0.0",
     "hapi-swagger": "^7.5.0",
