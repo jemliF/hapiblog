@@ -1,5 +1,5 @@
 const Joi = require('joi')
-
+const rethinkdb = require('../services/rethinkdb')
 var AuthorSchema = Joi.object().keys({
     firstname: Joi.string().alphanum().min(3).max(30).required(),
     lastname: Joi.string().alphanum().min(3).max(30).required(),
@@ -16,3 +16,12 @@ var ArticleSchema = Joi.object().keys({
 })
 
 exports.Article = ArticleSchema
+
+exports.jwt = (decoded, request, next) => {
+    rethinkdb.getByEmailAndPassword(decoded.email, decoded.password)
+        .then((resp) => {
+            return next(null, true)
+        }, (err) => {
+            return next(null, false)
+        })
+}

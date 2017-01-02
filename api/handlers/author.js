@@ -4,6 +4,7 @@ const log = require('../../utils/log')
 const Boom = require('boom')
 const Validation = require('../../utils/validation')
 const Joi = require('joi')
+const JWT = require('jsonwebtoken')
 const AUTHOR = 'author', ARTICLE = 'article'
 
 exports.get = (req, rep) => {
@@ -104,4 +105,19 @@ exports.delete = (req, rep) => {
     }, (errr) => {
         rep(Boom.notFound(errr))
     })
+}
+
+exports.login = (req, rep) => {
+    log.main.debug('[POST]  /api/v1/authors/login')
+    rethinkdb.getByEmailAndPassword(req.payload.email, req.payload.password)
+        .then((resp) => {
+            console.log(resp)
+            // use the token as the 'authorization' header in requests
+            let token = JWT.sign(resp[0], process.env.JWT_SECRET) // synchronous
+            console.log(token)
+            rep(token)
+        }, (err) => {
+            console.error(err)
+            rep(Boom.forbidden('Invalid account credantials'))
+        })
 }

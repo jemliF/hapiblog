@@ -31,6 +31,10 @@ rethinkdb.get = (model, id) => {
     return Model.get(id)
 }
 
+rethinkdb.getByEmailAndPassword = (email, password) => {
+    return Authors.filter({email: email, password: password})
+}
+
 rethinkdb.delete = (model, id) => {
     let Model = null
     model === ARTICLE ? Model = Articles : Model = Authors

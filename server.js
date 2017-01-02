@@ -5,6 +5,8 @@ const log = require('./utils/log')
 const sprintf = require("sprintf-js").sprintf
 const Tv = require('tv')
 const author = require('./api/routes/author')
+const hapiAuthJwt2 = require('hapi-auth-jwt2')
+const validation = require('./utils/validation')
 let server = {}
 server.start = function () {
     console.log('this method will start the hapi server')
@@ -65,17 +67,33 @@ server.start = function () {
      })
      })*/
 
-    hapiServer.route(author.get)
-    hapiServer.route(author.save)
-    hapiServer.route(author.update)
-    hapiServer.route(author.delete)
-
-    hapiServer.start((err) => {
-
+    hapiServer.register(hapiAuthJwt2, (err) => {
         if (err) {
-            log.main.error(err)
+            console.log(err);
+        } else {
+            hapiServer.auth.strategy('jwt', 'jwt',
+                {
+                    key: process.env.JWT_SECRET,
+                    validateFunc: validation.jwt,
+                    verifyOptions: {algorithms: ['HS256']}
+                });
+
+            hapiServer.auth.default('jwt');
+
+            hapiServer.route(author.get)
+            hapiServer.route(author.save)
+            hapiServer.route(author.update)
+            hapiServer.route(author.delete)
+            hapiServer.route(author.login)
+
+            hapiServer.start((err) => {
+
+                if (err) {
+                    log.main.error(err)
+                }
+                log.main.info(sprintf('Server running at: %s', hapiServer.info.uri))
+            })
         }
-        log.main.info(sprintf('Server running at: %s', hapiServer.info.uri))
     })
 
 }
